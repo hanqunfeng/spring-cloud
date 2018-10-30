@@ -5,11 +5,11 @@
 4. eureka-provider:spring-cloud-starter-netflix-eureka-client 服务提供者，需要集群部署
 5. eureka-ribbon:spring-cloud-starter-netflix-eureka-client 服务提供者及消费者，需要集群部署，ribbon+restTemplate，对外提供接口层
 6. feign:spring-cloud-starter-netflix-eureka-client spring-cloud-starter-openfeign 服务提供者及消费者，需要集群部 feign，对外提供接口层
-7. oauth2-jwt:spring-cloud-starter-oauth2 对外接口资源安全认证，这里负责保护eureka-ribbon和feign的
-8. oauth2-jwt-common:为接口服务提供oauth2+jwt支持，具体配置方式见feign
-9. turbine:spring-cloud-starter-netflix-turbine 聚合监控
+7. oauth2-jwt:spring-cloud-starter-oauth2 对外接口资源安全认证，这里负责保护eureka-ribbon和feign的，需要集群部署，可以使用nginx做负载，因为资源服务本身提供了获取token的功能，所以nginx不是必须的
+8. oauth2-jwt-common:为接口服务提供oauth2+jwt支持的jar，具体配置方式见feign
+9. turbine:spring-cloud-starter-netflix-turbine 聚合监控，可以集群部署，然后用nginx做负载
 10. zipkin-server:链路追踪，这里是下载的源码，增加了服务注册功能
-11. zuul:spring-cloud-starter-netflix-zuul 路由服务，这里为eureka-ribbon和feign提供路由，前端用nginx做负载分发
+11. zuul:spring-cloud-starter-netflix-zuul 路由服务，这里为eureka-ribbon和feign提供路由，需要集群部署，前端用nginx做负载分发
 
 
 
