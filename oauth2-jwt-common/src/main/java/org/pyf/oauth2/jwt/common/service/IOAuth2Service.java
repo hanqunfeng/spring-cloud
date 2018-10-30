@@ -16,5 +16,5 @@ public interface IOAuth2Service {
 
     @PostMapping(value = "/oauth/token")
     JWT getToken(@RequestHeader(value = "Authorization") String authorization, @RequestParam("grant_type") String type,
-                 @RequestParam("username") String username, @RequestParam("password") String password);
+                 @RequestParam(value = "username",required = false) String username, @RequestParam(value = "password",required = false) String password, @RequestParam(value = "refresh_token",required = false)String refresh_token);
 }

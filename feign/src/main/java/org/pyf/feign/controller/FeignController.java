@@ -25,7 +25,7 @@ public class FeignController {
     @Autowired
     private IOAuth2Service ioAuth2Service;
 
-    @PreAuthorize("hasRole('ROLE_USER01')")
+    @PreAuthorize("hasAuthority('USER01')")
     @GetMapping("/getinfo/{name}")
     public String getInfo(@PathVariable(name = "name") String name){
         System.out.println(UserUtils.getCurrentPrinciple());
@@ -34,10 +34,18 @@ public class FeignController {
         return service.getInfo(name);
     }
 
-    @GetMapping("/oauth/token")
+    @GetMapping("/oauth/get_token")
     public JWT getToken(String username,String password){
         String authorization = "Basic " + Base64Utils.encodeToString("feign:passwd".getBytes()) ;
-        JWT jwt = ioAuth2Service.getToken(authorization,"password",username,password);
+        JWT jwt = ioAuth2Service.getToken(authorization,"password",username,password,"");
+        return jwt;
+    }
+
+
+    @GetMapping("/oauth/refresh_token")
+    public JWT refreshToken(String refresh_token){
+        String authorization = "Basic " + Base64Utils.encodeToString("feign:passwd".getBytes()) ;
+        JWT jwt = ioAuth2Service.getToken(authorization,"refresh_token","","",refresh_token);
         return jwt;
     }
 }

@@ -63,7 +63,7 @@ public class JwtResourceServerConfiguration extends ResourceServerConfigurerAdap
         return converter;
     }
 
-    @Value("${jwt_regex_matchers:/oauth/token*,/actuator/**,.*swagger.*}")
+    @Value("${jwt_regex_matchers:/oauth/get_token*,/oauth/refresh_token*,/actuator/**,.*swagger.*}")
     String jwt_regex_matchers;
 
     @Override
