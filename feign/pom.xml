@@ -48,6 +48,13 @@
             <artifactId>spring-cloud-starter-zipkin</artifactId>
         </dependency>
 
+		<dependency>
+			<groupId>org.pyf</groupId>
+			<artifactId>oauth2-jwt-common</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+
 	</dependencies>
 
 
