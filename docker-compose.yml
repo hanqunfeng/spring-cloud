@@ -1,0 +1,49 @@
+version: "2"
+services:
+  eureka-server1:
+    image: pyf/eureka-server
+    hostname: eureka-server1
+    ports:
+      - "8761:8761"
+    environment:
+      - spring.profiles.active=server1
+  eureka-server2:
+    image: pyf/eureka-server
+    hostname: eureka-server2
+    ports:
+      - "8762:8762"
+    environment:
+      - spring.profiles.active=server2
+  eureka-server3:
+    image: pyf/eureka-server
+    hostname: eureka-server3
+    ports:
+      - "8763:8763"
+    environment:
+      - spring.profiles.active=server3
+#  config-server:
+#    image: pyf/config-server
+  eureka-provider:
+    image: pyf/eureka-provider
+  eureka-ribbon:
+    image: pyf/eureka-ribbon
+  feign:
+    image: pyf/feign
+  oauth2-jwt:
+    image: pyf/oauth2-jwt
+  turbine:
+    image: pyf/turbine
+  zuul1:
+    image: pyf/zuul
+    ports:
+      - "8981:8981"
+  zuul2:
+    image: pyf/zuul
+    ports:
+    - "8982:8981"
+  admin-server:
+    image: pyf/admin-server
+    ports:
+      - "8881:8881"
+
+

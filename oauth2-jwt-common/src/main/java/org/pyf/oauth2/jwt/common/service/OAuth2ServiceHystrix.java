@@ -11,8 +11,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class OAuth2ServiceHystrix implements IOAuth2Service {
 
-    @Override
+
     public JWT getToken(String authorization, String type, String username, String password,String refresh_token) {
         return null;
     }
+
+
 }

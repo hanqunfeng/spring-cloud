@@ -48,6 +48,17 @@
             <artifactId>spring-cloud-starter-zipkin</artifactId>
         </dependency>
 
+		<!--oauth2+jwt-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-oauth2</artifactId>
+		</dependency>
+
+		<!--feign负载方式-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.pyf</groupId>
 			<artifactId>oauth2-jwt-common</artifactId>

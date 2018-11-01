@@ -30,7 +30,7 @@ public class HttpUtils {
 
 
     public static Map<String, String> getHeaders(HttpServletRequest request) {
-        Map<String, String> map = new LinkedHashMap<>();
+        Map<String, String> map = new LinkedHashMap<String, String>();
         Enumeration<String> enumeration = request.getHeaderNames();
         while (enumeration.hasMoreElements()) {
             String key = enumeration.nextElement();

@@ -26,12 +26,14 @@ public class ProviderController {
     @ApiOperation(value = "获取服务器信息",notes = "根据传入名称打印服务器信息")
     @GetMapping("/getinfo")
     public String getInfo(String name){
+        System.out.println("Hi,"+name+" , port is:" + port + " , d1==" + d1 + " ,d2==" + d2);
         return "Hi,"+name+" , port is:" + port + " , d1==" + d1 + " ,d2==" + d2;
     }
 
     @ApiOperation(value = "获取服务器信息2",notes = "根据传入名称打印服务器信息2")
     @GetMapping("/getinfo2/{username}")
     public String getInfo2(@PathVariable(value = "username") String username){
+        System.out.println("Hi,"+username+" , port is:" + port);
         return "Hi,"+username+" , port is:" + port;
     }
 
