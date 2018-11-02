@@ -1,6 +1,7 @@
 package org.pyf.eureka.provider.controller;
 
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
+@Slf4j
 public class ProviderController {
     @Value("${server.port}")
     private String port;
@@ -27,6 +29,7 @@ public class ProviderController {
     @GetMapping("/getinfo")
     public String getInfo(String name){
         System.out.println("Hi,"+name+" , port is:" + port + " , d1==" + d1 + " ,d2==" + d2);
+        log.info("Hi,"+name+" , port is:" + port + " , d1==" + d1 + " ,d2==" + d2);
         return "Hi,"+name+" , port is:" + port + " , d1==" + d1 + " ,d2==" + d2;
     }
 
@@ -34,6 +37,7 @@ public class ProviderController {
     @GetMapping("/getinfo2/{username}")
     public String getInfo2(@PathVariable(value = "username") String username){
         System.out.println("Hi,"+username+" , port is:" + port);
+        log.info("Hi,"+username+" , port is:" + port);
         return "Hi,"+username+" , port is:" + port;
     }
 

@@ -54,6 +54,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
 
@@ -93,11 +99,13 @@
             </plugin>
 
 
+            <!--docker-maven插件，可以生成镜像并部署到docker服务中，如果不配置dockerHost，则会读取环境变量DOCKER_HOST,如果也没有配置则默认部署到本地-->
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.2.0</version>
                 <configuration>
+                    <!--<dockerHost>http://10.211.55.13:2375</dockerHost>-->
                     <imageName>pyf/${project.artifactId}</imageName>
                     <dockerDirectory>${basedir}/docker</dockerDirectory>
                     <resources>

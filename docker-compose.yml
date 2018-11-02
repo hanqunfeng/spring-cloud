@@ -25,25 +25,27 @@ services:
 #    image: pyf/config-server
   eureka-provider:
     image: pyf/eureka-provider
+    volumes:
+      - /logs/spring-cloud:/logs/spring-cloud
   eureka-ribbon:
     image: pyf/eureka-ribbon
-  feign:
-    image: pyf/feign
-  oauth2-jwt:
-    image: pyf/oauth2-jwt
-  turbine:
-    image: pyf/turbine
+#  feign:
+#    image: pyf/feign
+#  oauth2-jwt:
+#    image: pyf/oauth2-jwt
+#  turbine:
+#    image: pyf/turbine
   zuul1:
     image: pyf/zuul
     ports:
       - "8981:8981"
-  zuul2:
-    image: pyf/zuul
-    ports:
-    - "8982:8981"
-  admin-server:
-    image: pyf/admin-server
-    ports:
-      - "8881:8881"
+#  zuul2:
+#    image: pyf/zuul
+#    ports:
+#      - "8982:8981"
+#  admin-server:
+#    image: pyf/admin-server
+#    ports:
+#      - "8881:8881"
 
 
