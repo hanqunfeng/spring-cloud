@@ -100,21 +100,58 @@
 
 
             <!--docker-maven插件，可以生成镜像并部署到docker服务中，如果不配置dockerHost，则会读取环境变量DOCKER_HOST,如果也没有配置则默认部署到本地-->
+            <!-- 将docker的命令目标绑定到maven的verify阶段，也就是说，执行maven verify时就会自动创建镜像、打好tag、发布到私服（按声明顺序执行） -->
+            <!--这里有一个问题，parent项目并不需要创建镜像，所以在打tag时就会报错，提示找不到parent项目的镜像，
+            解决方法是在docker服务中随便创建一个与parent项目对应的镜像即可，比如我这里选择使用hello-world镜像（大小只有几k）创建一个tag为当前parent项目的镜像
+            docker tag hello-world:latest pyf/spring-cloud:0.0.1 -->
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.2.0</version>
+                <executions>
+                    <execution>
+                        <id>build-image</id>     <!--定义一个执行命令的id-->
+                        <phase>verify</phase>   <!--绑定mvn的哪个命令-->
+                        <goals>
+                            <goal>build</goal>   <!--要执行的命令 -->
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>image-tag</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>tag</goal>      <!--tag命令，相当于docker的tag命令-->
+                        </goals>
+                        <configuration>
+                            <image>pyf/${project.artifactId}:${project.version}</image>   <!--镜像名-->
+                            <newName>10.211.55.13/library/${project.artifactId}:${project.version}</newName>   <!--打的标签名-->
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>package-push</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>push</goal>    <!--相当于docker的push命令-->
+                        </goals>
+                        <configuration>
+                            <imageName>10.211.55.13/library/${project.artifactId}:${project.version}</imageName>  <!--要push的镜像名-->
+                            <serverId>docker-harbor</serverId>   <!--mvn setting.xml配置的那个id，私服对应的用户名和密码-->
+                        </configuration>
+                    </execution>
+                </executions>
                 <configuration>
-                    <!--<dockerHost>http://10.211.55.13:2375</dockerHost>-->
-                    <imageName>pyf/${project.artifactId}</imageName>
-                    <dockerDirectory>${basedir}/docker</dockerDirectory>
+                    <forceTags>true</forceTags>  <!--覆盖相同标签镜像-->
+                    <dockerHost>http://10.211.55.13:2375</dockerHost>  <!-- 指定仓库地址 -->
+                    <imageName>pyf/${project.artifactId}:${project.version}</imageName>  <!--指定镜像名称 仓库/镜像名:标签-->
+                    <dockerDirectory>${basedir}/docker</dockerDirectory>  <!-- Dockerfile所在路径 -->
                     <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
+                        <resource>  <!-- 指定资源文件 -->
+                            <targetPath>/</targetPath>  <!-- 指定要复制的目录路径，这里是当前目录 -->
+                            <directory>${project.build.directory}</directory>  <!-- 指定要复制的根目录，这里是target目录 -->
+                            <include>${project.build.finalName}.jar</include>  <!-- 指定需要拷贝的文件，这里指最后生成的jar包 -->
                         </resource>
                     </resources>
+
                 </configuration>
             </plugin>
         </plugins>

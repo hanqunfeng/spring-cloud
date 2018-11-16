@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 services:
   eureka-server1:
     image: pyf/eureka-server
@@ -27,8 +27,14 @@ services:
     image: pyf/eureka-provider
     volumes:
       - /logs/spring-cloud:/logs/spring-cloud
+    depends_on:
+      - eureka-server1
+      - eureka-server2
+      - eureka-server3
   eureka-ribbon:
     image: pyf/eureka-ribbon
+    depends_on:
+      - eureka-provider
 #  feign:
 #    image: pyf/feign
 #  oauth2-jwt:
@@ -39,6 +45,8 @@ services:
     image: pyf/zuul
     ports:
       - "8981:8981"
+    depends_on:
+      - eureka-ribbon
 #  zuul2:
 #    image: pyf/zuul
 #    ports:
